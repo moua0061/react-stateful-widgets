@@ -16,6 +16,7 @@ The text of the button can be derived from the value of that one slice of state.
 
 STEP 0:
   Start by studying the component below, and importing the state hook.
+  done
 
 STEP 1:
   Create a 'spinnerOn', 'setSpinnerOn' pair of variables using the state hook.
@@ -41,6 +42,7 @@ import React, { useState } from 'react'; /* STEP 0 */
 
 export default function Spinner() {
 /* STEP 1 */
+const [spinnerOn, setSpinnerOn] = useState(true);
 
   const toggleSpinner = () => {
   /* STEP 4 */
