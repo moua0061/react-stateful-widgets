@@ -12,19 +12,24 @@ Whether the text shows royalblue or crimson can be derived from the length of th
 
 STEP 0:
   Study the component below, and import the state hook.
+  done
 
 STEP 1:
   Create a slice of state called 'inputValue' and its 'setInputValue' buddy.
   We should initialize this state to the empty string.
+  done
 
 STEP 2:
   Make the color of the text be crimson if the length of 'inputValue' goes over ten.
+  done
 
 STEP 3:
   Interpolate the value of the input inside this <div />. How can we make it show in ALL CAPS?
+  done
 
 STEP 4:
   Set the value of the input -found inside the event object- into state.
+  done.
 
 STEP 5:
   Set the input value in state to be empty string. The reset still won't work, though! See the next step.
@@ -34,32 +39,36 @@ STEP 6:
   We need to add an extra prop to the <input /> element like so: value={inputValue}
 */
 
-import React from 'react'; /* STEP 0 */
+import React, { useState } from 'react'; /* STEP 0 */
 
 export default function Input() {
   /* STEP 1 */
+  const [inputValue, setInputValue] = useState('');
 
   const changeInput = evt => {
     // When the input changes, its whole value can be found inside the event object.
     // Log out the synthetic event object 'evt' and see for yourself.
+    console.log(evt.target.value);
     const { value } = evt.target;
-
+    console.log(value)
     /* STEP 4 */
+    setInputValue(value)
   };
   const reset = () => {
     /* STEP 5 */
+    setInputValue('');
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color: inputValue.length >= 10 ? 'crimson' : 'royalblue' /* STEP 2 */
   };
 
   return (
     <div className='widget-input container'>
       <h2>Input</h2>
-      <div id='output' style={style}></div> {/* STEP 3 */}
+      <div id='output' style={style}>{inputValue.toUpperCase()}</div> 
       <div>
         <input id='input' type='text' onChange={changeInput} /> {/* STEP 6 */}
         <button id='resetInput' onClick={reset}>Reset</button>

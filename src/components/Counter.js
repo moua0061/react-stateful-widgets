@@ -7,6 +7,7 @@ https://tk-assets.lambdaschool.com/59036a85-0980-42c8-81ad-9afc8354497f_counter-
 How many slices of state do you think are necessary to act as "sources of truth" for all
 the things that change in this widget? Give it some thought before continuing reading!
 
+
 A naive developer might say 3 different slices:
   - The count
   - Whether the text is color crimson or royalblue
@@ -17,61 +18,74 @@ The other things can simply be _derived_ from the count itself.
 
 STEP 0:
   Start by studying the component below, and importing the state hook.
+  done
 
 STEP 1:
   Using the state hook, create a 'count', 'setCount' pair.
   The 'count' state should be initialized to the number zero.
+  done
 
 STEP 2:
   The 'style' object has the 'color' property hard-coded to "royalblue".
   What the value of 'color' should be instead is a ternary expression that goes like this:
   If count is even, then "royalblue", else "crimson".
+  done
 
 STEP 3:
   We need to replace some hard-coded info in the JSX with expressions, interpolated inside curly brackets.
   Start by replacing the character "0" with {count}. The 'count' slice of state is the source of truth here.
   Then, replace the word "even" with a ternary: {if count is even number, then string "even", else string "odd"}.
+  done
 
 STEP 4:
   This click handler needs to use 'setCount' to schedule the 'count' to become the current 'count' plus one.
   These state changes are not synchronous: the updated count arrives on the next run of the Counter component.
   Do NOT simply do count++. The plus plus is forbidden! We never mutate a slice of state in place. Even if you could
   reassign a const, React would not be aware anything changed. Always use the state updater, passing in a new value.
+  done
 
 STEP 5:
   This click handler needs to use 'setCount' to set the 'count' to be the current 'count' minus one.
   Do NOT do count--. That amounts to trying to mutate 'count' in place. This is the road to perdition.
+  done
 
 STEP 6:
   This click handler needs to use 'setCount' to set the 'count' to be zero again.
+  done
 */
 
-import React from 'react'; /* STEP 0 */
+import React, { useState } from 'react'; /* STEP 0 */
 
 export default function Counter() {
   /* STEP 1 */
+  const [count, setCounter] = useState(0);
 
   const increment = () => {
     /* STEP 4 */
+    setCounter(count + 1);
+
   };
   const decrement = () => {
     /* STEP 5 */
+    setCounter(count + 1)
   };
   const reset = () => {
     /* STEP 6 */
+    setCounter(0)
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color: count % 2 === 0 ? 'royalblue' : 'crimson' /* STEP 2 */
+    
   };
 
   return (
     <div className='widget-counter container'>
       <h2>Counter</h2>
       <div id='count' style={style}>
-        Number 0 is even {/* STEP 3 */}
+        Number { count /* STEP 3 */} is {count % 2 === 0 ? 'even' : 'odd'};
       </div>
       <div>
         <button id='increment' onClick={increment}>Increment</button>
