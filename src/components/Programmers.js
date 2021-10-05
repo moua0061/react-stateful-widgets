@@ -28,6 +28,10 @@ export default function Programmers() {
   // We'll have to use the state hook twice, as we need two slices of state.
   // The programmers list on the one hand, and the id of the featured programmer on the other.
 
+  const [programmer, setProgrammer] = useState(listOfAwesome);
+  const [featuredProgrammer, setFeaturedProgrammer] = useState('');
+
+
   const getNameOfFeatured = () => {
     // Leave this for last!
     // This is NOT an event handler but a helper function. See its usage inside the JSX.
@@ -52,7 +56,7 @@ export default function Programmers() {
           we could never add or edit programmers in the future. The list would be a static thing." */
           listOfAwesome.map(dev =>
             <div className='programmer' key={dev.id}>
-              {dev.name} <button onClick={() => { /* in here set the featured id to be dev.id */ }}>Feature</button>
+              {dev.name} <button onClick={() => { dev.id /* in here set the featured id to be dev.id */ }}>Feature</button>
             </div>
           )
         }
@@ -62,7 +66,7 @@ export default function Programmers() {
           // Ternaries are fantastic to render "one thing or the other" depending on the "truthiness" of something.
           // Pseudo-code: if the currently featured id is truthy render text 1, otherwise render text 2.
           // Replace the hard-coded false with the correct variable.
-          false
+          { dev.id } === { featuredProgrammer }
             ? `🎉 Let's celebrate ${getNameOfFeatured()}! 🥳`
             : 'Pick an awesome programmer'
         }
